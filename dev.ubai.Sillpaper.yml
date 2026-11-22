@@ -32,6 +32,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/ubaimutl/sillpaper.git
-        tag: v0.1.1
-        commit: 2ed7e97cab235ca22cb60253ec170d2bd5cf45b4
+        tag: v0.1.2
+        commit: 850fd6cd384d34c770436a403e8a71c472a9bc52
       - cargo-sources.json
