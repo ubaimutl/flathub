@@ -1,0 +1,39 @@
+app-id: dev.ubai.Sillpaper
+runtime: org.gnome.Platform
+runtime-version: '51'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: sillpaper
+
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # Optional online extensions and remote content
+  - --share=network
+
+modules:
+  - name: sillpaper
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/rust-stable/bin
+      env:
+        CARGO_HOME: /run/build/sillpaper/cargo
+        CARGO_NET_OFFLINE: 'true'
+
+    build-commands:
+      - cargo build --release --locked --offline --bin sillpaper
+      - install -Dm755 target/release/sillpaper /app/bin/sillpaper
+      - install -Dm644 assets/dev.ubai.Sillpaper.desktop /app/share/applications/dev.ubai.Sillpaper.desktop
+      - install -Dm644 assets/dev.ubai.Sillpaper.svg /app/share/icons/hicolor/scalable/apps/dev.ubai.Sillpaper.svg
+      - install -Dm644 assets/dev.ubai.Sillpaper.metainfo.xml /app/share/metainfo/dev.ubai.Sillpaper.metainfo.xml
+      - install -Dm644 LICENSE /app/share/licenses/dev.ubai.Sillpaper/LICENSE
+
+    sources:
+      - type: git
+        url: https://github.com/ubaimutl/sillpaper.git
+        tag: v0.1.1
+        commit: 2ed7e97cab235ca22cb60253ec170d2bd5cf45b4
+      - cargo-sources.json
