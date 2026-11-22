@@ -11,8 +11,6 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --device=dri
-  # Optional online extensions and remote content
-  - --share=network
 
 modules:
   - name: sillpaper
